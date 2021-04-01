@@ -27,6 +27,14 @@ begin
 	if row_cnt = 1 then
 		dbms_output.put_line(sql%rowcount||'건 추가');
 		commit; -- commit할 조건을 달아 줄 때 if가 필요하다.
-	end if;
+  end if;
+
+	exception
+	when dup_val_on_index then
+			dbms_output.put_line(empno ||'번은 존재하는 사원 번호 입니다.');
+			dbms_output.put_line(sqlcode ||', '||sqlerrm);
+	when others then
+			dbms_output.put_line('죄송죄송요');
+			dbms_output.put_line(sqlcode ||', '||sqlerrm);
 end;
 /
